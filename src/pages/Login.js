@@ -45,6 +45,7 @@ class Login extends Component {
             ) : (
               <div data-testid="page-login">
                 <label htmlFor="name">
+                  Nome
                   <input
                     name="name"
                     value={ name }
