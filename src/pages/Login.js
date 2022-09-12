@@ -19,7 +19,7 @@ class Login extends Component {
     });
   };
 
-  enableButtonSave = () => {
+  enableButtonEnter = () => {
     const { name } = this.state;
     if (name.length > 2) {
       this.setState({ isEnterButtonDisabled: false });
@@ -28,7 +28,7 @@ class Login extends Component {
 
   handleOnChange = ({ target: { name, value } }) => {
     this.setState({ [name]: value }, () => {
-      this.enableButtonSave();
+      this.enableButtonEnter();
     });
   };
 
