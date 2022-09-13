@@ -9,6 +9,8 @@ class Album extends Component {
   state = {
     albumMusics: [],
     favs: [],
+    artistName: '',
+    collectionName: '',
   };
 
   async componentDidMount() {
@@ -19,20 +21,25 @@ class Album extends Component {
     } = this.props;
     const favs = await getFavoriteSongs();
     const response = await getMusics(id);
-    this.setState({ albumMusics: response, favs });
+    this.setState({
+      albumMusics: response,
+      favs,
+      artistName: response[0].artistName,
+      collectionName: response[0].collectionName,
+    });
   }
 
   render() {
-    const { albumMusics, favs } = this.state;
+    const { albumMusics, favs, artistName, collectionName } = this.state;
+    console.log(albumMusics[0]);
     return (
       <div data-testid="page-album">
         Album Search
         <Header />
         <div>
-          <p data-testid="artist-name">Artist Name</p>
-          <p data-testid="album-name">Collection Name</p>
+          <p data-testid="artist-name">{artistName}</p>
+          <p data-testid="album-name">{collectionName}</p>
         </div>
-
         {albumMusics.map((music, index) => {
           const { trackId, trackName, previewUrl } = music;
           if (index !== 0) {
