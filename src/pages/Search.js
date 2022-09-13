@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Header from './components/Header';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
 import Loading from './components/Loading';
-import Album from './Album';
+import AlbumCard from './components/AlbumCard';
 
 class Search extends Component {
   state = {
@@ -31,7 +31,7 @@ class Search extends Component {
   handleOnClick = ({ target: { name } }) => {
     this.setState({ loading: true, search: '', artistSearch: name }, async () => {
       const response = await searchAlbumsAPI(name);
-      this.setState({ albumList: [...response], loading: false }, () => console.log(this.state.albumList));
+      this.setState({ albumList: [...response], loading: false });
     });
   };
 
@@ -91,7 +91,7 @@ class Search extends Component {
                     data-testid={ `link-to-album-${collectionId}` }
                     key={ collectionId }
                   >
-                    <Album
+                    <AlbumCard
                       collectionName={ collectionName }
                       collectionId={ collectionId }
                       artistName={ artistName }
