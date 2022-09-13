@@ -6,9 +6,15 @@ import Loading from './Loading';
 class MusicCard extends Component {
   state = {
     loading: false,
+    checked: false,
   };
 
-  handleOnChange = () => {
+  componentDidMount() {
+    this.setState({ checked: this.favVerify() });
+  }
+
+  handleOnChangeCheckBox = ({ target: { name, checked } }) => {
+    this.setState({ [name]: checked });
     const { music } = this.props;
     this.setState({ loading: true }, async () => {
       await addSong(music);
@@ -16,8 +22,13 @@ class MusicCard extends Component {
     });
   };
 
+  favVerify = () => {
+    const { favs, trackId } = this.props;
+    return favs.some((fav) => fav.trackId === trackId);
+  };
+
   render() {
-    const { loading } = this.state;
+    const { loading, checked } = this.state;
     const { trackName, previewUrl, trackId } = this.props;
     return (
       <div>
@@ -32,10 +43,12 @@ class MusicCard extends Component {
         <label htmlFor="fav">
           Favorita
           <input
+            name="checked"
             type="checkbox"
+            checked={ checked }
             id="fav"
             data-testid={ `checkbox-music-${trackId}` }
-            onChange={ this.handleOnChange }
+            onChange={ this.handleOnChangeCheckBox }
           />
         </label>
         {loading && <Loading />}
@@ -45,6 +58,7 @@ class MusicCard extends Component {
 }
 
 MusicCard.propTypes = {
+  favs: PropTypes.array,
   previewUrl: PropTypes.string,
   trackName: PropTypes.string,
   trackId: PropTypes.string,
