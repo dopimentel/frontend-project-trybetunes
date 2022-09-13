@@ -3,11 +3,13 @@ import Header from './components/Header';
 
 class Album extends Component {
   render() {
+    const { artistName, collectionName } = this.props;
     return (
       <div data-testid="page-album">
-        Album
-        Search
+        Album Search
         <Header />
+        <p>{artistName}</p>
+        <p>{collectionName}</p>
       </div>
     );
   }

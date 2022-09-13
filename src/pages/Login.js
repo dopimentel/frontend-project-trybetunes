@@ -21,6 +21,7 @@ class Login extends Component {
 
   enableButtonEnter = () => {
     const { name } = this.state;
+    this.setState({ isEnterButtonDisabled: true });
     if (name.length > 2) {
       this.setState({ isEnterButtonDisabled: false });
     }
